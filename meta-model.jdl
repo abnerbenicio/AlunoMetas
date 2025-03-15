@@ -1,0 +1,15 @@
+entity Aluno {
+    nome String required
+}
+
+entity Meta {
+    area String required, 
+    nota Integer required
+}
+
+relationship OneToMany {
+    Aluno to Meta
+}
+
+paginate Meta with pagination
+paginate Aluno with pagination

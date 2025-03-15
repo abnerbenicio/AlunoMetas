@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-meta-heading" data-cy="MetaCreateUpdateHeading" jhiTranslate="alunoMetasApp.meta.home.createOrEditLabel">
+        Create or edit a Meta
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="alunoMetasApp.meta.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <!-- Campo de Área como Dropdown -->
+        <div class="mb-3">
+          <label class="form-label" for="field_area" jhiTranslate="alunoMetasApp.meta.area">Área</label>
+          <select class="form-control" name="area" id="field_area" data-cy="area" formControlName="area">
+            <option value="Matemática e suas Tecnologias">Matemática e suas Tecnologias</option>
+            <option value="Linguagens, Códigos e suas Tecnologias">Linguagens, Códigos e suas Tecnologias</option>
+            <option value="Ciências Humanas e suas Tecnologias">Ciências Humanas e suas Tecnologias</option>
+            <option value="Ciências da Natureza e suas Tecnologias">Ciências da Natureza e suas Tecnologias</option>
+          </select>
+
+          @if (editForm.get('area')?.invalid && (editForm.get('area')?.dirty || editForm.get('area')?.touched)) {
+            <div>
+              @if (editForm.get('area')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Campo de Nota -->
+        <div class="mb-3">
+          <label class="form-label" for="field_nota" jhiTranslate="alunoMetasApp.meta.nota">Nota</label>
+          <input type="number" class="form-control" name="nota" id="field_nota" data-cy="nota" formControlName="nota" />
+          @if (editForm.get('nota')?.invalid && (editForm.get('nota')?.dirty || editForm.get('nota')?.touched)) {
+            <div>
+              @if (editForm.get('nota')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('nota')?.errors?.number" jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <!-- Campo de Aluno -->
+        <div class="mb-3">
+          <label class="form-label" for="field_aluno" jhiTranslate="alunoMetasApp.meta.aluno">Aluno</label>
+          <select class="form-control" id="field_aluno" data-cy="aluno" name="aluno" formControlName="aluno" [compareWith]="compareAluno">
+            <option [ngValue]="null"></option>
+            @for (alunoOption of alunosSharedCollection; track $index) {
+              <option [ngValue]="alunoOption">{{ alunoOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -6,6 +6,16 @@ const routes: Routes = [
     data: { pageTitle: 'alunoMetasApp.adminAuthority.home.title' },
     loadChildren: () => import('./admin/authority/authority.routes'),
   },
+  {
+    path: 'aluno',
+    data: { pageTitle: 'alunoMetasApp.aluno.home.title' },
+    loadChildren: () => import('./aluno/aluno.routes'),
+  },
+  {
+    path: 'meta',
+    data: { pageTitle: 'alunoMetasApp.meta.home.title' },
+    loadChildren: () => import('./meta/meta.routes'),
+  },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];
 
