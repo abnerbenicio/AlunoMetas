@@ -39,6 +39,10 @@ git clone https://github.com/abnerbenicio/AlunoMetas.git
 cd AlunoMetas
 ```
 ```bash
+npm run webapp:build
+```
+```bash
 ./mvnw
+//Acessar o link http://localhost:8080/
 ```
 
